@@ -1,0 +1,17 @@
+{
+  "modelPath": "./models/batiklens_web_uint8.tflite",
+  "labels": [
+    "kawung",
+    "truntum",
+    "megamendung",
+    "sidomukti",
+    "parang",
+    "dayak",
+    "maluku"
+  ],
+  "inputSize": 224,
+  "confidenceThreshold": 0.6,
+  "cropRatio": 0.7,
+  "smoothingWindow": 5,
+  "scanIntervalMs": 900
+}
