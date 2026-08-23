@@ -1,0 +1,39 @@
+{
+  "model_name": "BatikLens MobileNetV2 SGKF",
+  "winning_variant": "E0",
+  "n_classes": 7,
+  "labels": [
+    "kawung",
+    "truntum",
+    "megamendung",
+    "sidomukti",
+    "parang",
+    "dayak",
+    "maluku"
+  ],
+  "input_shape": [
+    1,
+    224,
+    224,
+    3
+  ],
+  "input_dtype_pwa": "uint8",
+  "input_range": "0..255",
+  "normalization": "internal Rescaling from 0..255 to -1..1",
+  "output_shape": [
+    1,
+    7
+  ],
+  "cv_folds": 3,
+  "oof_accuracy": 0.7469512195121951,
+  "oof_balanced_accuracy": 0.7445246107749289,
+  "oof_macro_f1": 0.7401181808109862,
+  "fold_macro_f1_mean": 0.7243423879000126,
+  "fold_macro_f1_sd": 0.007468915225648081,
+  "confidence_threshold": 0.6,
+  "deployment_head_epochs": 16,
+  "deployment_fine_epochs": 6,
+  "deployment_platform": "Progressive Web Application / MediaPipe ImageClassifier / CPU-WASM",
+  "github_repository": "TeresaHertada/batiklens-pwa2",
+  "github_pages_url": "https://teresahertada.github.io/batiklens-pwa2/"
+}
