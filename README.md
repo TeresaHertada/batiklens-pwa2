@@ -1,2 +1,2 @@
-# batiklens-pwa2
-Batik Lens Application  V2
+# batiklens-pwa
+Batik Lens Application  
