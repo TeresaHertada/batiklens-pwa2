@@ -1,7 +1,7 @@
 {
 "id": "/batiklens-pwa2/",  
-"name": "BatikLens – Pengenalan Motif Batik",
-  "short_name": "BatikLens",
+"name": "BatikLens Padmanaba – Pengenalan Motif Batik",
+  "short_name": "BatikLens Padmanaba",
   "description": "Aplikasi edukasi untuk mengenali motif batik melalui kamera smartphone.",
   "start_url": "./",
   "scope": "./",
