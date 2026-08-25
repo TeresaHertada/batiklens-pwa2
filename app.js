@@ -6,7 +6,7 @@ import {
 const WASM_ROOT = "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.35/wasm";
 
 const APP_VERSION = "batiklens-pwa2-fullframe-margin-v1";
-console.info("BatikLens app version:", APP_VERSION);
+console.info("BatikLens Padmanaba app version:", APP_VERSION);
 
 const $ = (id) => document.getElementById(id);
 const els = {
