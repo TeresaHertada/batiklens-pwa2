@@ -89,7 +89,14 @@ footer { color: var(--muted); text-align: center; padding: 24px 0 36px; font-siz
   .form-grid { grid-template-columns: 1fr; }
   .prediction-row { grid-template-columns: 90px 1fr 46px; }
 }
-
+.model-description {
+  margin: 8px 0 0;
+  padding-top: 8px;
+  border-top: 1px solid rgba(109, 63, 40, 0.12);
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: #78645a;
+}
 /* =========================================================
    FOOTER BATIKLENS PADMANABA
    ========================================================= */
