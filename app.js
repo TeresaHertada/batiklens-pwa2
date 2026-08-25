@@ -233,6 +233,59 @@ function drawModelInput(source) {
   );
 }
 
+//tambahan cek brightness
+function checkBrightness(canvas) {
+  const ctx = canvas.getContext("2d", { willReadFrequently: true });
+  const imageData = ctx.getImageData(
+    0,
+    0,
+    canvas.width,
+    canvas.height
+  );
+
+  const data = imageData.data;
+
+  let totalLuminance = 0;
+  let darkPixels = 0;
+  let count = 0;
+
+  // Sampling tiap 4 pixel agar ringan di smartphone
+  for (let i = 0; i < data.length; i += 16) {
+    const r = data[i];
+    const g = data[i + 1];
+    const b = data[i + 2];
+
+    const luminance =
+      0.2126 * r +
+      0.7152 * g +
+      0.0722 * b;
+
+    totalLuminance += luminance;
+
+    if (luminance < 45) {
+      darkPixels++;
+    }
+
+    count++;
+  }
+
+  const meanLuminance =
+    count > 0 ? totalLuminance / count : 0;
+
+  const darkRatio =
+    count > 0 ? darkPixels / count : 1;
+
+  return {
+    meanLuminance,
+    darkRatio,
+
+    // Nilai awal untuk pengujian.
+    tooDark:
+      meanLuminance < 50 ||
+      darkRatio > 0.65,
+  };
+}
+
 function categoriesToVector(categories) {
   const vector = new Array(config.labels.length).fill(0);
   for (const category of categories) {
@@ -307,6 +360,62 @@ async function classifySource(source, { resetSmoothing = false, sourceType = "ca
   try {
     drawModelInput(source);
 
+     // =====================================================
+  // CEK KUALITAS PENCAHAYAAN SEBELUM MASUK KE MODEL
+  // =====================================================
+  const brightness = checkBrightness(els.canvas);
+
+  console.log(
+    "Brightness:",
+    brightness.meanLuminance.toFixed(1),
+    "Dark ratio:",
+    (brightness.darkRatio * 100).toFixed(1) + "%"
+  );
+
+  if (brightness.tooDark) {
+
+    // Jangan ikutkan frame gelap ke smoothing hasil sebelumnya
+    smoothingBuffer = [];
+
+    els.resultCard.classList.remove("empty");
+
+    els.resultName.textContent =
+      "Pencahayaan kurang";
+
+    els.resultConfidence.textContent = "—";
+
+    els.resultMessage.textContent =
+      "Motif terlalu gelap untuk dikenali dengan baik. " +
+      "Pindahkan motif ke tempat yang lebih terang " +
+      "dan pastikan pola terlihat jelas.";
+
+    els.latency.textContent = "—";
+
+    // Hilangkan hasil edukasi lama
+    if (els.educationPanel) {
+      els.educationPanel.classList.add("hidden");
+    }
+
+    // Hilangkan Top-3 lama agar pengguna tidak
+    // mengira hasil sebelumnya masih berlaku
+    if (els.topPredictions) {
+      els.topPredictions.replaceChildren();
+    }
+
+    setStatus(
+      "loading",
+      "Pencahayaan kurang",
+      `Tingkat cahaya ${(brightness.meanLuminance).toFixed(0)}/255. ` +
+      "Arahkan motif ke tempat yang lebih terang."
+    );
+
+    return;
+  }
+
+  // =====================================================
+  // BARU KLASIFIKASI JIKA PENCAHAYAAN CUKUP
+  // =====================================================
+    
     const started = performance.now();
     const result = classifier.classifyForVideo(
       els.canvas,
@@ -353,6 +462,16 @@ async function classifySource(source, { resetSmoothing = false, sourceType = "ca
       secondConfidence,
     );
 
+    //tambahan status
+    setStatus(
+      "ready",
+      "Kamera aktif",
+      autoScanning
+        ? "Pemindaian otomatis berjalan."
+        : "Siap melakukan pemindaian."
+    );
+    //akhir tambahan status
+    
     renderResult({
       label,
       confidence,
