@@ -40,6 +40,7 @@ const els = {
   downloadLog: $("downloadLogButton"),
   clearLog: $("clearLogButton"),
   logCount: $("logCount"),
+  modelDescription: document.getElementById("modelDescription"),
 };
 
 let config;
