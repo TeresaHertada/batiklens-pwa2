@@ -102,7 +102,12 @@ async function initialize() {
 
     classifierReady = true;
     els.delegate.textContent = delegateName;
-    setStatus("ready", "Model siap", `Klasifikasi berjalan di perangkat dengan ${delegateName}.`);
+
+    els.modelDescription.textContent =
+  `BatikLens Padmanaba saat ini dapat mengenali tujuh motif batik: Dayak, Kawung, ` +
+  `Mega Mendung, Maluku Pala Cengkeh, Parang, Sido Mukti, dan Truntum.`;
+    
+    setStatus("ready", "Model siap", `Model pengenalan motif siap digunakan.`);
     updateControlState();
     updateLogCount();
   } catch (error) {
