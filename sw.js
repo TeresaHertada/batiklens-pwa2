@@ -11,8 +11,9 @@ const CORE_ASSETS = [
   "./data/config.json",
   "./data/batik_metadata.json",
   "./models/batiklens_web_uint8.tflite",
-  "./icons/icon2508.png",
-  "./icons/icon2508.png"
+  "./icons/icon2508192.png",
+  "./icons/icon2508512.png",
+  "./icons/logo-padmanaba.png"
 ];
 
 self.addEventListener("install", (event) => {
