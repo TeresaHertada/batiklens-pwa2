@@ -101,7 +101,7 @@ async function initialize() {
 
     classifierReady = true;
     els.delegate.textContent = delegateName;
-    setStatus("ready", "Model siap", `Klasifikasi berjalan di perangkat dengan ${delegateName}.`);
+    setStatus("ready", "Model siap", `Klasifikasi berjalan di perangkat dengan ${delegateName}. Motif yang dapat dikenali adalah : Motif Dayak, Kawung, Mega Mendung, Motif Maluku Pala Cengkeh, Parang, Sido Mukti, Truntum`);
     updateControlState();
     updateLogCount();
   } catch (error) {
